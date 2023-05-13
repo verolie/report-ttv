@@ -18,6 +18,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('App\Http\Controllers\Api')->group(function() {
-    Route::apiResource('/patient', PatientController::class);
+Route::controller(App\Http\Controllers\Api\PatientController::class)->prefix('patient')->group(function() {
+    Route::get('get-all', 'index');
+    Route::post('get-patient', 'getPatient');
+    Route::post('store', 'store');
+    Route::post('delete', 'delete');
+    Route::post('update', 'edit');
 });
