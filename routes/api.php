@@ -19,8 +19,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::controller(App\Http\Controllers\Api\PatientController::class)->prefix('patient')->group(function() {
-    Route::get('get-all', 'index');
-    Route::post('get-patient', 'getPatient');
+    Route::get('get-all', 'getAll');
+    Route::post('get-by-name', 'getPatient');
+    Route::post('store', 'store');
+    Route::post('delete', 'delete');
+    Route::post('update', 'edit');
+});
+
+Route::controller(App\Http\Controllers\Api\ReportController::class)->prefix('report')->group(function() {
+    Route::get('get-all', 'getAll');
+    Route::post('get-by-name', 'getReport');
     Route::post('store', 'store');
     Route::post('delete', 'delete');
     Route::post('update', 'edit');
