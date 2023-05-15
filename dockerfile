@@ -1,31 +1,35 @@
-FROM php:7.4-apache
+# Use the official PHP base image with Apache
+FROM php:8.0-apache
 
-# Install required packages and extensions
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    libzip-dev \
-    zip \
-    unzip \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install zip
-
-# Set the working directory
+# Set the working directory in the Docker image
 WORKDIR /var/www/html
 
-# Copy the application code into the image
-COPY . /var/www/html/
+# Copy the source code into the Docker image
+COPY . /var/www/html
 
-# Set the ownership of the storage and bootstrap/cache directories
-RUN chown -R www-data:www-data storage bootstrap/cache
+# Install PHP dependencies using Composer
+RUN apt-get update && \
+    apt-get install -y \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip && \
+    docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Run database migrationsup
-# RUN php artisan migrate
-
-# Enable the Apache rewrite module
+# Set up Apache configuration
 RUN a2enmod rewrite
 
-# Expose port 80
-EXPOSE 8081
+# Set environment variables
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-# Set the entrypoint command
+# Configure Apache document root
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Expose port 80 for Apache
+EXPOSE 80
+
+# Start the Apache server
 CMD ["apache2-foreground"]

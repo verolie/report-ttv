@@ -27,4 +27,10 @@ class Report extends Model
         return $this->join('patient','patient.id', 'ttv-report.patient_id')
                     ->select('patient.name', 'ttv-report.*')->get();
     }
+
+    function getByIdName($id){
+        return $this->join('patient','patient.id', 'ttv-report.patient_id')
+                    ->where('patient.id', "=" , $id)
+                    ->select('patient.name')->first();
+    }
 }

@@ -14,12 +14,12 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: "/",
+            path: "/patient",
             name: "patient",
             component: Patient,
         },
         {
-            path: "/report",
+            path: "/",
             name: "report",
             component: Report,
         },
@@ -27,6 +27,7 @@ const router = createRouter({
 });
 
 createApp(App).use(router).use(unoverlay).mount("#app");
+
 // const app = createApp({})
 
 // app.component('report', Report)

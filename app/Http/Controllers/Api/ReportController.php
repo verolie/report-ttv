@@ -32,6 +32,7 @@ class ReportController extends Controller
                 $report->laju_pernapasan = $laju_pernapasan;
                 $report->suhu_tubuh = $suhu_tubuh;
                 $report->save();
+                $report->name = $report->getByIdName($patient_id)->name;
                 $resp['data'] = $report;
             } catch(Exception $e) {
                 $resp['status'] = false;
@@ -61,6 +62,7 @@ class ReportController extends Controller
             $resp['status'] = true;
             $resp['message'] = 'Update Data Berhasil';
     
+            $id = $request['id'];
             $patient_id = $request['patient_id'];
             $tekanan_darah = $request['tekanan_darah'];
             $denyut_nadi = $request['denyut_nadi'];
@@ -68,13 +70,14 @@ class ReportController extends Controller
             $suhu_tubuh = $request['suhu_tubuh'];
 
             try{
-                $report = Report::where('id', $request['id'])->first();
+                $report = Report::where('id', $id)->first();
                 $report->patient_id = $patient_id;
                 $report->tekanan_darah = $tekanan_darah;
                 $report->denyut_nadi = $denyut_nadi;
                 $report->laju_pernapasan = $laju_pernapasan;
                 $report->suhu_tubuh = $suhu_tubuh;
                 $report->save();
+                $report->name = $report->getByIdName($patient_id)->name;
                 $resp['data'] = $report;
             } catch(Exception $e) {
                 $resp['status'] = false;
