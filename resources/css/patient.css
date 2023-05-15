@@ -1,0 +1,85 @@
+.title-patient {
+  font-size: 25px;
+}
+
+.patient-container {
+  padding: 20px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+
+
+.row>* {
+  width: 80vw;
+}
+
+.height {
+  height: 100vh;
+}
+
+
+.search-patient {
+  margin-bottom: 40px;
+}
+
+.search {
+  position: relative;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+}
+
+.search input {
+  height: 60px;
+  text-indent: 25px;
+  border: 2px solid #d6d4d4;
+}
+
+.search input:focus {
+  box-shadow: none;
+  border: 2px solid blue;
+}
+
+.search .fa-search {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+}
+
+.search button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 50px;
+  width: 110px;
+  background: blue;
+}
+
+.table-content {
+  margin-bottom: 30px;
+}
+
+.table-patient {
+  padding: 20px;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+  border-radius: 10px;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
+.padding-col-zero {
+  padding: 0;
+}
+
+.button-patient {
+  margin-bottom: 10px;
+}
+
+.btn-tbl {
+  margin-left: 5px;
+}
