@@ -24,7 +24,12 @@
         <!-- button -->
         <div class="row justify-content-center button-patient">
             <div class="col-9 padding-col-zero">
-                <button @click="openModal" type="button" class="btn btn-dark btn-tbl" id="btn-add">
+                <button
+                    @click="openModalAdd"
+                    type="button"
+                    class="btn btn-dark btn-tbl"
+                    id="btn-add"
+                >
                     Add
                 </button>
                 <button
@@ -44,40 +49,91 @@
             </div>
         </div>
 
-        <!-- Modal content -->
-        <div class="modal" v-if="isOpen">
+        <!-- Modal content add and edit -->
+        <div class="modal" v-if="isOpenAdd">
             <div class="modal-content">
-            <!-- Modal close button -->
-            <span class="close" @click="closeModal">&times;</span>
+                <!-- Modal close button -->
+                <span class="close" @click="closeModalAdd">&times;</span>
 
-            <!-- Modal body content -->
-            <div class="modal-body">
-                <h3>Add New Patient</h3>
+                <!-- Modal body content -->
+                <div class="modal-body">
+                    <h3>Add New Patient</h3>
 
-                <!-- Form inputs -->
-                <div>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" v-model="newPatient.name" />
-                </div>
+                    <div class="input-div">
+                        <!-- Form inputs -->
+                        <div class="row justify-content-start">
+                            <div class="col-3">
+                                <label for="name" class="col-form-label"
+                                    >Name:</label
+                                >
+                            </div>
+                            <div class="col-9">
+                                <input
+                                    type="text"
+                                    id="name"
+                                    class="form-control"
+                                    v-model="newPatient.name"
+                                />
+                            </div>
+                        </div>
 
-                <div>
-                    <label for="weight">Weight:</label>
-                    <input type="number" id="weight" v-model="newPatient.weight" />
-                </div>
+                        <div class="row justify-content-start">
+                            <div class="col-3">
+                                <label for="age" class="col-form-label"
+                                    >Age:</label
+                                >
+                            </div>
+                            <div class="col-9">
+                                <input
+                                    type="number"
+                                    id="age"
+                                    class="form-control"
+                                    v-model="newPatient.age"
+                                />
+                            </div>
+                        </div>
 
-                <div>
-                    <label for="height">Height:</label>
-                    <input type="number" id="height" v-model="newPatient.height" />
-                </div>
+                        <div class="row justify-content-start">
+                            <div class="col-3">
+                                <label for="weight" class="col-form-label"
+                                    >Weight:</label
+                                >
+                            </div>
+                            <div class="col-9">
+                                <input
+                                    type="number"
+                                    id="weight"
+                                    class="form-control"
+                                    v-model="newPatient.weight"
+                                />
+                            </div>
+                        </div>
 
-                <!-- Submit button -->
-                <button @click="addPatient" class="btn btn-primary">Submit</button>
+                        <div class="row justify-content-start">
+                            <div class="col-3">
+                                <label for="height" class="col-form-label"
+                                    >Height:</label
+                                >
+                            </div>
+                            <div class="col-9">
+                                <input
+                                    type="number"
+                                    id="height"
+                                    class="form-control"
+                                    v-model="newPatient.height"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Submit button -->
+                    <div class="row" style="padding-right: 60px; padding-left: 60px">
+                    <button  @click="addPatient" class="btn btn-primary col align-self-center" >
+                        Submit
+                    </button>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- FfORM -->
-
 
         <!-- table -->
         <div class="row justify-content-center table-content">
@@ -93,40 +149,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th class="text-center" scope="row">1</th>
-                            <td>Mark</td>
-                            <td>20</td>
-                            <td>50</td>
-                            <td>180</td>
-                            <td>
-                                <input
-                                    type="checkbox"
-                                    name="active[]"
-                                    value="1"
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="text-center" scope="row">2</th>
-                            <td>Mark</td>
-                            <td>20</td>
-                            <td>50</td>
-                            <td>180</td>
-                            <td>
-                                <input
-                                    type="checkbox"
-                                    name="active[]"
-                                    value="2"
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="text-center" scope="row">3</th>
-                            <td>Mark</td>
-                            <td>20</td>
-                            <td>50</td>
-                            <td>180</td>
+                        <tr v-for="(patient, index) in this.patients" :key="index">
+                            <th class="text-center" scope="row">{{ patient.id }}</th>
+                            <td>{{ patient.name }}</td>
+                            <td>{{ patient.age }}</td>
+                            <td>{{ patient.weight }}</td>
+                            <td>{{ patient.height }}</td>
                             <td>
                                 <input
                                     type="checkbox"
@@ -145,85 +173,136 @@
 
 
 <script>
+import axios from 'axios';
+
 export default {
-  data() {
-    return {
-      isOpen: false,
-      newPatient: {
-        name: '',
-        weight: '',
-        height: ''
-      }
-    };
-  },
-  methods: {
-    openModal() {
-      this.isOpen = true;
-    },
-    closeModal() {
-      this.isOpen = false;
-    },
-    addPatient() {
-      // Perform the logic to add the new patient using the data from `newPatient`
-      console.log('Adding patient:', this.newPatient);
 
-      // Reset the form
-      this.newPatient = {
-        name: '',
-        weight: '',
-        height: ''
-      };
+    // import axios from 'axios';
 
-      // Close the modal
-      this.isOpen = false;
-    }
-  }
+    name: 'patients',
+    data(){
+        return{
+        patients: []
+        };
+    },
+    mounted(){
+        console.log("test   ");
+        this.getPatients();
+        console.log("test   ");
+    },
+ 
+    // add patient
+
+    data() {
+        return {
+            isOpenAdd: false,
+            newPatient: {
+                age: "",
+                name: "",
+                weight: "",
+                height: "",
+            },
+        };
+    },
+    methods: {
+        
+        //modal add
+        openModalAdd() {
+            this.isOpenAdd = true;
+        },
+        closeModalAdd() {
+            this.isOpenAdd = false;
+        },
+
+        addPatient() {
+            // Perform the logic to add the new patient using the data from `newPatient`
+            console.log("Adding patient:", this.newPatient);
+
+            // Reset the form
+            this.newPatient = {
+                age: "",
+                name: "",
+                weight: "",
+                height: "",
+            };
+
+            // Close the modal
+            this.isOpenAdd = false;
+        },
+
+        getPatients(){
+            axios.get("http://127.0.0.1:8000/api/patient/get-all").then(res => {
+                this.patients = res.data;
+                console.log(this.patients);
+            });
+        }
+    },
 };
 </script>
 
+
+
 <style>
-  @import url("../css/patient.css");
+@import url("../css/patient.css");
 </style>
 
 <style scoped>
 /* Modal styles */
 .modal {
-  display: block;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-  background-color: white;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+    background-color: white;
+    margin: 15% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 30%;
 }
 
+
 .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
+
+
+/* input text */
+.input-div{
+    padding: 10px;
+}
+
+.input-div .row{
+    margin-bottom: 15px;
+}
+
+/* .input-div .row div{
+    margin-bottom: 15px;
+} */
+
 
 /* Other styles */
 .btn-tbl {
-  margin-right: 10px;
+    margin-right: 10px;
 }
+
+
 </style>
