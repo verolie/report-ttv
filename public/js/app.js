@@ -22397,67 +22397,67 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-var _name$data$mounted$da;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_name$data$mounted$da = {
-  // import axios from 'axios';
-
-  name: 'patients',
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      patients: []
+      patients: [],
+      isOpenAdd: false,
+      newPatient: {
+        age: "",
+        name: "",
+        weight: "",
+        height: ""
+      }
     };
   },
   mounted: function mounted() {
-    console.log("test   ");
     this.getPatients();
-    console.log("test   ");
-  }
-}, _defineProperty(_name$data$mounted$da, "data", function data() {
-  return {
-    isOpenAdd: false,
-    newPatient: {
-      age: "",
-      name: "",
-      weight: "",
-      height: ""
+  },
+  methods: {
+    //modal add
+    openModalAdd: function openModalAdd() {
+      this.isOpenAdd = true;
+    },
+    closeModalAdd: function closeModalAdd() {
+      this.isOpenAdd = false;
+    },
+    addPatient: function addPatient() {
+      var _this = this;
+      // Perform the logic to add the new patient using the data from `newPatient`
+      console.log("Adding patient:", this.newPatient);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("http://127.0.0.1:8000/api/patient/store", this.newPatient).then(function (response) {
+        var newItem = {
+          name: _this.newPatient.name,
+          age: _this.newPatient.age,
+          weight: _this.newPatient.weight,
+          height: _this.newPatient.height
+        };
+        _this.patients.push(_this.newPatient);
+      })["catch"](function (error) {
+        console.error("Error adding table value:", error);
+      });
+
+      // Reset the form
+      this.newPatient = {
+        age: "",
+        name: "",
+        weight: "",
+        height: ""
+      };
+
+      // Close the modal
+      this.isOpenAdd = false;
+    },
+    getPatients: function getPatients() {
+      var _this2 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://127.0.0.1:8000/api/patient/get-all").then(function (res) {
+        _this2.patients = res.data;
+        console.log(_this2.patients);
+      });
     }
-  };
-}), _defineProperty(_name$data$mounted$da, "methods", {
-  //modal add
-  openModalAdd: function openModalAdd() {
-    this.isOpenAdd = true;
-  },
-  closeModalAdd: function closeModalAdd() {
-    this.isOpenAdd = false;
-  },
-  addPatient: function addPatient() {
-    // Perform the logic to add the new patient using the data from `newPatient`
-    console.log("Adding patient:", this.newPatient);
-
-    // Reset the form
-    this.newPatient = {
-      age: "",
-      name: "",
-      weight: "",
-      height: ""
-    };
-
-    // Close the modal
-    this.isOpenAdd = false;
-  },
-  getPatients: function getPatients() {
-    var _this = this;
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://127.0.0.1:8000/api/patient/get-all").then(function (res) {
-      _this.patients = res.data;
-      console.log(_this.patients);
-    });
   }
-}), _name$data$mounted$da);
+});
 
 /***/ }),
 
@@ -22543,42 +22543,31 @@ var _hoisted_4 = {
   "class": "row justify-content-center button-patient"
 };
 var _hoisted_5 = {
-  "class": "col-9 padding-col-zero"
+  "class": "col-9",
+  style: {
+    "padding": "0px"
+  }
 };
-var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "button",
-    "class": "btn btn-dark btn-tbl",
-    id: "btn-remove"
-  }, " Delete ", -1 /* HOISTED */);
-});
-var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "button",
-    "class": "btn btn-dark btn-tbl",
-    id: "btn-edit"
-  }, " Edit ", -1 /* HOISTED */);
-});
-var _hoisted_8 = {
+var _hoisted_6 = {
   key: 0,
   "class": "modal"
 };
-var _hoisted_9 = {
+var _hoisted_7 = {
   "class": "modal-content"
 };
-var _hoisted_10 = {
+var _hoisted_8 = {
   "class": "modal-body"
 };
-var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "Add New Patient", -1 /* HOISTED */);
 });
-var _hoisted_12 = {
+var _hoisted_10 = {
   "class": "input-div"
 };
-var _hoisted_13 = {
+var _hoisted_11 = {
   "class": "row justify-content-start"
 };
-var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-3"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -22586,13 +22575,13 @@ var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
     "class": "col-form-label"
   }, "Name:")], -1 /* HOISTED */);
 });
-var _hoisted_15 = {
+var _hoisted_13 = {
   "class": "col-9"
 };
-var _hoisted_16 = {
+var _hoisted_14 = {
   "class": "row justify-content-start"
 };
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-3"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -22600,13 +22589,13 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
     "class": "col-form-label"
   }, "Age:")], -1 /* HOISTED */);
 });
-var _hoisted_18 = {
+var _hoisted_16 = {
   "class": "col-9"
 };
-var _hoisted_19 = {
+var _hoisted_17 = {
   "class": "row justify-content-start"
 };
-var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-3"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -22614,13 +22603,13 @@ var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
     "class": "col-form-label"
   }, "Weight:")], -1 /* HOISTED */);
 });
-var _hoisted_21 = {
+var _hoisted_19 = {
   "class": "col-9"
 };
-var _hoisted_22 = {
+var _hoisted_20 = {
   "class": "row justify-content-start"
 };
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-3"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -22628,50 +22617,55 @@ var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
     "class": "col-form-label"
   }, "Height:")], -1 /* HOISTED */);
 });
-var _hoisted_24 = {
+var _hoisted_22 = {
   "class": "col-9"
 };
-var _hoisted_25 = {
+var _hoisted_23 = {
   "class": "row",
   style: {
     "padding-right": "60px",
     "padding-left": "60px"
   }
 };
-var _hoisted_26 = {
+var _hoisted_24 = {
   "class": "row justify-content-center table-content"
 };
-var _hoisted_27 = {
+var _hoisted_25 = {
   "class": "table-patient col-9"
 };
-var _hoisted_28 = {
+var _hoisted_26 = {
   "class": "table"
 };
-var _hoisted_29 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", {
     "class": "thead-dark"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center"
-  }, "id"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  }, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center"
   }, "Name"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center"
-  }, "Age"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  }, "Height"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center"
-  }, "Weight"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-    "class": "text-center"
-  }, "Height")])], -1 /* HOISTED */);
+  }, "Weight")])], -1 /* HOISTED */);
 });
-var _hoisted_30 = {
-  "class": "text-center",
-  scope: "row"
-};
-var _hoisted_31 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "checkbox",
-    name: "active[]",
-    value: "1"
-  })], -1 /* HOISTED */);
+var _hoisted_28 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "row justify-content-center",
+    style: {
+      "margin": "0px"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-dark btn-tbl col-3",
+    id: "btn-remove"
+  }, " Delete "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-dark btn-tbl col-3",
+    id: "btn-edit"
+  }, " Edit "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "col-9 padding-col-zero"
+  })])], -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -22682,48 +22676,48 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "button",
     "class": "btn btn-dark btn-tbl",
     id: "btn-add"
-  }, " Add "), _hoisted_6, _hoisted_7])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content add and edit "), $data.isOpenAdd ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal close button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  }, " Add new patient ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content add and edit "), $data.isOpenAdd ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal close button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "close",
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.closeModalAdd && $options.closeModalAdd.apply($options, arguments);
     })
-  }, "×"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal body content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Form inputs "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, "×"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal body content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Form inputs "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     id: "name",
     "class": "form-control",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.newPatient.name = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newPatient.name]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [_hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newPatient.name]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "number",
     id: "age",
     "class": "form-control",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $data.newPatient.age = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newPatient.age]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newPatient.age]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "number",
     id: "weight",
     "class": "form-control",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.newPatient.weight = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newPatient.weight]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newPatient.weight]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "number",
     id: "height",
     "class": "form-control",
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.newPatient.height = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newPatient.height]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Submit button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newPatient.height]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Submit button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[6] || (_cache[6] = function () {
       return $options.addPatient && $options.addPatient.apply($options, arguments);
     }),
     "class": "btn btn-primary col align-self-center"
-  }, " Submit ")])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" table "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_28, [_hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(this.patients, function (patient, index) {
+  }, " Submit ")])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" table "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_26, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.patients, function (patient) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
-      key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.age), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.weight), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.height), 1 /* TEXT */), _hoisted_31]);
+      key: patient.id
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.height), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(patient.weight), 1 /* TEXT */), _hoisted_28]);
   }), 128 /* KEYED_FRAGMENT */))])])])])]);
 }
 
@@ -28179,7 +28173,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Modal styles */\n.modal[data-v-83abec88] {\r\n    display: block;\r\n    position: fixed;\r\n    z-index: 1;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgba(0, 0, 0, 0.5);\n}\n.modal-content[data-v-83abec88] {\r\n    background-color: white;\r\n    margin: 15% auto;\r\n    padding: 30px;\r\n    border: 1px solid #888;\r\n    width: 30%;\n}\n.close[data-v-83abec88] {\r\n    color: #aaa;\r\n    float: right;\r\n    font-size: 28px;\r\n    font-weight: bold;\r\n    cursor: pointer;\n}\n.close[data-v-83abec88]:hover,\r\n.close[data-v-83abec88]:focus {\r\n    color: black;\r\n    text-decoration: none;\r\n    cursor: pointer;\n}\r\n\r\n\r\n/* input text */\n.input-div[data-v-83abec88]{\r\n    padding: 10px;\n}\n.input-div .row[data-v-83abec88]{\r\n    margin-bottom: 15px;\n}\r\n\r\n/* .input-div .row div{\r\n    margin-bottom: 15px;\r\n} */\r\n\r\n\r\n/* Other styles */\n.btn-tbl[data-v-83abec88] {\r\n    margin-right: 10px;\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Modal styles */\n.modal[data-v-83abec88] {\r\n    display: block;\r\n    position: fixed;\r\n    z-index: 1;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgba(0, 0, 0, 0.5);\n}\n.modal-content[data-v-83abec88] {\r\n    background-color: white;\r\n    margin: 15% auto;\r\n    padding: 30px;\r\n    border: 1px solid #888;\r\n    width: 30%;\n}\n.close[data-v-83abec88] {\r\n    color: #aaa;\r\n    float: right;\r\n    font-size: 28px;\r\n    font-weight: bold;\r\n    cursor: pointer;\n}\n.close[data-v-83abec88]:hover,\r\n.close[data-v-83abec88]:focus {\r\n    color: black;\r\n    text-decoration: none;\r\n    cursor: pointer;\n}\r\n\r\n/* input text */\n.input-div[data-v-83abec88] {\r\n    padding: 10px;\n}\n.input-div .row[data-v-83abec88] {\r\n    margin-bottom: 15px;\n}\r\n\r\n/* .input-div .row div{\r\n    margin-bottom: 15px;\r\n} */\r\n\r\n/* Other styles */\n.btn-tbl[data-v-83abec88] {\r\n    margin-right: 10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28227,7 +28221,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".title-patient {\r\n  font-size: 25px;\r\n}\r\n\r\n.patient-container {\r\n  padding: 20px;\r\n  margin-left: 8px;\r\n  margin-right: 8px;\r\n}\r\n\r\n\r\n\r\n.row>* {\r\n  width: 80vw;\r\n}\r\n\r\n.height {\r\n  height: 100vh;\r\n}\r\n\r\n\r\n.search-patient {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search {\r\n  position: relative;\r\n  box-shadow: 0 0 40px rgba(51, 51, 51, .1);\r\n}\r\n\r\n.search input {\r\n  height: 60px;\r\n  text-indent: 25px;\r\n  border: 2px solid #d6d4d4;\r\n}\r\n\r\n.search input:focus {\r\n  box-shadow: none;\r\n  border: 2px solid blue;\r\n}\r\n\r\n.search .fa-search {\r\n  position: absolute;\r\n  top: 20px;\r\n  left: 16px;\r\n}\r\n\r\n.search button {\r\n  position: absolute;\r\n  top: 5px;\r\n  right: 5px;\r\n  height: 50px;\r\n  width: 110px;\r\n  background: blue;\r\n}\r\n\r\n.table-content {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.table-patient {\r\n  padding: 20px;\r\n  box-shadow: 0 0 40px rgba(51, 51, 51, .1);\r\n  border-radius: 10px;\r\n}\r\n\r\nth {\r\n  text-align: center;\r\n}\r\n\r\ntd {\r\n  text-align: center;\r\n}\r\n\r\n.padding-col-zero {\r\n  padding: 0;\r\n}\r\n\r\n.button-patient {\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.btn-tbl {\r\n  margin-left: 5px;\r\n}\r\n/* form */", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".title-patient {\r\n  font-size: 25px;\r\n}\r\n\r\n.patient-container {\r\n  padding: 20px;\r\n  margin-left: 8px;\r\n  margin-right: 8px;\r\n}\r\n\r\n\r\n\r\n.row>* {\r\n  width: 80vw;\r\n}\r\n\r\n.height {\r\n  height: 100vh;\r\n}\r\n\r\n\r\n.search-patient {\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search {\r\n  position: relative;\r\n  box-shadow: 0 0 40px rgba(51, 51, 51, .1);\r\n}\r\n\r\n.search input {\r\n  height: 60px;\r\n  text-indent: 25px;\r\n  border: 2px solid #d6d4d4;\r\n}\r\n\r\n.search input:focus {\r\n  box-shadow: none;\r\n  border: 2px solid blue;\r\n}\r\n\r\n.search .fa-search {\r\n  position: absolute;\r\n  top: 20px;\r\n  left: 16px;\r\n}\r\n\r\n.search button {\r\n  position: absolute;\r\n  top: 5px;\r\n  right: 5px;\r\n  height: 50px;\r\n  width: 110px;\r\n  background: blue;\r\n}\r\n\r\n.table-content {\r\n  margin-bottom: 30px;\r\n}\r\n\r\n.table-patient {\r\n  padding: 20px;\r\n  box-shadow: 0 0 40px rgba(51, 51, 51, .1);\r\n  border-radius: 10px;\r\n}\r\n\r\nth {\r\n  text-align: center;\r\n}\r\n\r\ntd {\r\n  text-align: center;\r\n}\r\n\r\n.padding-col-zero {\r\n  padding: 0;\r\n}\r\n\r\n.button-patient {\r\n  margin-bottom: 10px;\r\n  \r\n}\r\n\r\n.btn-tbl {\r\n  margin-left: 5px;\r\n}\r\n/* form */", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -23,28 +23,14 @@
 
         <!-- button -->
         <div class="row justify-content-center button-patient">
-            <div class="col-9 padding-col-zero">
+            <div class="col-9" style="padding: 0px">
                 <button
                     @click="openModalAdd"
                     type="button"
                     class="btn btn-dark btn-tbl"
                     id="btn-add"
                 >
-                    Add
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-dark btn-tbl"
-                    id="btn-remove"
-                >
-                    Delete
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-dark btn-tbl"
-                    id="btn-edit"
-                >
-                    Edit
+                    Add new patient
                 </button>
             </div>
         </div>
@@ -126,10 +112,16 @@
                         </div>
                     </div>
                     <!-- Submit button -->
-                    <div class="row" style="padding-right: 60px; padding-left: 60px">
-                    <button  @click="addPatient" class="btn btn-primary col align-self-center" >
-                        Submit
-                    </button>
+                    <div
+                        class="row"
+                        style="padding-right: 60px; padding-left: 60px"
+                    >
+                        <button
+                            @click="addPatient"
+                            class="btn btn-primary col align-self-center"
+                        >
+                            Submit
+                        </button>
                     </div>
                 </div>
             </div>
@@ -141,26 +133,39 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th class="text-center">id</th>
+                            <th class="text-center">ID</th>
                             <th class="text-center">Name</th>
-                            <th class="text-center">Age</th>
-                            <th class="text-center">Weight</th>
                             <th class="text-center">Height</th>
+                            <th class="text-center">Weight</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(patient, index) in this.patients" :key="index">
-                            <th class="text-center" scope="row">{{ patient.id }}</th>
+                        <tr v-for="patient in patients" :key="patient.id">
+                            <td>{{ patient.id }}</td>
                             <td>{{ patient.name }}</td>
-                            <td>{{ patient.age }}</td>
-                            <td>{{ patient.weight }}</td>
                             <td>{{ patient.height }}</td>
+                            <td>{{ patient.weight }}</td>
                             <td>
-                                <input
-                                    type="checkbox"
-                                    name="active[]"
-                                    value="1"
-                                />
+                                <div
+                                    class="row justify-content-center"
+                                    style="margin: 0px"
+                                >
+                                    <button
+                                        type="button"
+                                        class="btn btn-dark btn-tbl col-3"
+                                        id="btn-remove"
+                                    >
+                                        Delete
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-dark btn-tbl col-3"
+                                        id="btn-edit"
+                                    >
+                                        Edit
+                                    </button>
+                                    <div class="col-9 padding-col-zero"></div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -170,31 +175,14 @@
     </div>
 </template>
 
-
-
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-
-    // import axios from 'axios';
-
-    name: 'patients',
-    data(){
-        return{
-        patients: []
-        };
-    },
-    mounted(){
-        console.log("test   ");
-        this.getPatients();
-        console.log("test   ");
-    },
- 
-    // add patient
-
     data() {
         return {
+            patients: [],
+
             isOpenAdd: false,
             newPatient: {
                 age: "",
@@ -204,8 +192,10 @@ export default {
             },
         };
     },
+    mounted() {
+        this.getPatients();
+    },
     methods: {
-        
         //modal add
         openModalAdd() {
             this.isOpenAdd = true;
@@ -217,6 +207,24 @@ export default {
         addPatient() {
             // Perform the logic to add the new patient using the data from `newPatient`
             console.log("Adding patient:", this.newPatient);
+
+            axios
+                .post(
+                    "http://127.0.0.1:8000/api/patient/store",
+                    this.newPatient
+                )
+                .then((response) => {
+                    const newItem = {
+                        name: this.newPatient.name,
+                        age: this.newPatient.age,
+                        weight: this.newPatient.weight,
+                        height: this.newPatient.height,
+                    };
+                    this.patients.push(this.newPatient);
+                })
+                .catch((error) => {
+                    console.error("Error adding table value:", error);
+                });
 
             // Reset the form
             this.newPatient = {
@@ -230,17 +238,17 @@ export default {
             this.isOpenAdd = false;
         },
 
-        getPatients(){
-            axios.get("http://127.0.0.1:8000/api/patient/get-all").then(res => {
-                this.patients = res.data;
-                console.log(this.patients);
-            });
-        }
+        getPatients() {
+            axios
+                .get("http://127.0.0.1:8000/api/patient/get-all")
+                .then((res) => {
+                    this.patients = res.data;
+                    console.log(this.patients);
+                });
+        },
     },
 };
 </script>
-
-
 
 <style>
 @import url("../css/patient.css");
@@ -268,7 +276,6 @@ export default {
     width: 30%;
 }
 
-
 .close {
     color: #aaa;
     float: right;
@@ -284,13 +291,12 @@ export default {
     cursor: pointer;
 }
 
-
 /* input text */
-.input-div{
+.input-div {
     padding: 10px;
 }
 
-.input-div .row{
+.input-div .row {
     margin-bottom: 15px;
 }
 
@@ -298,11 +304,8 @@ export default {
     margin-bottom: 15px;
 } */
 
-
 /* Other styles */
 .btn-tbl {
     margin-right: 10px;
 }
-
-
 </style>
