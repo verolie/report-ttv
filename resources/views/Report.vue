@@ -6,21 +6,6 @@
             </div>
         </div>
 
-        <!-- search -->
-        <div class="row justify-content-center search-patient">
-            <div class="col-5">
-                <div class="search">
-                    <i class="fa fa-search"></i>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Have a question? Ask Now"
-                    />
-                    <button class="btn btn-primary">Search</button>
-                </div>
-            </div>
-        </div>
-
         <!-- button -->
         <div class="row justify-content-center button-patient">
             <div class="col-9" style="padding: 0px">
