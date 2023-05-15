@@ -29,6 +29,7 @@ class PatientController extends Controller
             $patient->height = $height;
             $patient->weight = $weight;
             $patient->save();
+            $resp['data'] = $patient;
         } catch(Exception $e) {
             $resp['status'] = false;
             $resp['message'] = $e;
