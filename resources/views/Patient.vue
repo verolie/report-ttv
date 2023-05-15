@@ -24,7 +24,7 @@
         <!-- button -->
         <div class="row justify-content-center button-patient">
             <div class="col-9 padding-col-zero">
-                <button @click="() => TogglePopup('buttonTrigger')" type="button" class="btn btn-dark btn-tbl" id="btn-add">
+                <button @click="openModal" type="button" class="btn btn-dark btn-tbl" id="btn-add">
                     Add
                 </button>
                 <button
@@ -41,6 +41,38 @@
                 >
                     Edit
                 </button>
+            </div>
+        </div>
+
+        <!-- Modal content -->
+        <div class="modal" v-if="isOpen">
+            <div class="modal-content">
+            <!-- Modal close button -->
+            <span class="close" @click="closeModal">&times;</span>
+
+            <!-- Modal body content -->
+            <div class="modal-body">
+                <h3>Add New Patient</h3>
+
+                <!-- Form inputs -->
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" v-model="newPatient.name" />
+                </div>
+
+                <div>
+                    <label for="weight">Weight:</label>
+                    <input type="number" id="weight" v-model="newPatient.weight" />
+                </div>
+
+                <div>
+                    <label for="height">Height:</label>
+                    <input type="number" id="height" v-model="newPatient.height" />
+                </div>
+
+                <!-- Submit button -->
+                <button @click="addPatient" class="btn btn-primary">Submit</button>
+                </div>
             </div>
         </div>
 
@@ -113,22 +145,85 @@
 
 
 <script>
-import { ref } from 'vue';
-// import PopupForm from "../js/components/Form-patient.vue";
-
-
-// const btnAdd = document.getElementById("btn-add");
-// const btnRemove = document.getElementById("btn-remove");
-// const btnEdit = document.getElementById("btn-edit");
-
-
 export default {
-    setup () {
-    
+  data() {
+    return {
+      isOpen: false,
+      newPatient: {
+        name: '',
+        weight: '',
+        height: ''
+      }
+    };
+  },
+  methods: {
+    openModal() {
+      this.isOpen = true;
+    },
+    closeModal() {
+      this.isOpen = false;
+    },
+    addPatient() {
+      // Perform the logic to add the new patient using the data from `newPatient`
+      console.log('Adding patient:', this.newPatient);
+
+      // Reset the form
+      this.newPatient = {
+        name: '',
+        weight: '',
+        height: ''
+      };
+
+      // Close the modal
+      this.isOpen = false;
     }
-}
+  }
+};
 </script>
 
 <style>
   @import url("../css/patient.css");
+</style>
+
+<style scoped>
+/* Modal styles */
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Other styles */
+.btn-tbl {
+  margin-right: 10px;
+}
 </style>
