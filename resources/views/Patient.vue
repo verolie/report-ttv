@@ -214,13 +214,8 @@ export default {
                     this.newPatient
                 )
                 .then((response) => {
-                    const newItem = {
-                        name: this.newPatient.name,
-                        age: this.newPatient.age,
-                        weight: this.newPatient.weight,
-                        height: this.newPatient.height,
-                    };
-                    this.patients.push(this.newPatient);
+                    this.patients.push(response.data.data);
+                    console.log("Response:", response.data);
                 })
                 .catch((error) => {
                     console.error("Error adding table value:", error);

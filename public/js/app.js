@@ -22427,13 +22427,8 @@ __webpack_require__.r(__webpack_exports__);
       // Perform the logic to add the new patient using the data from `newPatient`
       console.log("Adding patient:", this.newPatient);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post("http://127.0.0.1:8000/api/patient/store", this.newPatient).then(function (response) {
-        var newItem = {
-          name: _this.newPatient.name,
-          age: _this.newPatient.age,
-          weight: _this.newPatient.weight,
-          height: _this.newPatient.height
-        };
-        _this.patients.push(_this.newPatient);
+        _this.patients.push(response.data.data);
+        console.log("Response:", response.data);
       })["catch"](function (error) {
         console.error("Error adding table value:", error);
       });

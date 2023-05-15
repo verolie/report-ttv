@@ -32,6 +32,7 @@ class ReportController extends Controller
                 $report->laju_pernapasan = $laju_pernapasan;
                 $report->suhu_tubuh = $suhu_tubuh;
                 $report->save();
+                $resp['data'] = $report;
             } catch(Exception $e) {
                 $resp['status'] = false;
                 $resp['message'] = $e;
@@ -74,6 +75,7 @@ class ReportController extends Controller
                 $report->laju_pernapasan = $laju_pernapasan;
                 $report->suhu_tubuh = $suhu_tubuh;
                 $report->save();
+                $resp['data'] = $report;
             } catch(Exception $e) {
                 $resp['status'] = false;
                 $resp['message'] = $e;
