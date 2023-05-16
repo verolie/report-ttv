@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Vue 3 Install in Laravel 9</title>
+        <title>Report TTV</title>
 
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" ></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
